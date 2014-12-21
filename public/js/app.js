@@ -1,7 +1,6 @@
 /**
- * @fileOverview angularjs todosFactory.js
+ * @fileOverview angularjs app.js
  * @author info@plastikaweb.com (Carlos Matheu)
- * API REST
  */
 (function(){
     "use strict";

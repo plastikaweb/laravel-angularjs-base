@@ -1,18 +1,10 @@
 <?php
 
-Route::get('/', function()
-{
+Route::get('/', function() {
     return View::make('index');
 });
 
-Route::get('todos', function()
-{
-    return Todo::all();
+Route::group(array('prefix' => 'api'), function(){
+   Route::resource('todos', 'TodoController');
 });
-
-Route::post('todos', function()
-{
-    return Todo::create(Input::all());
-});
-
 
