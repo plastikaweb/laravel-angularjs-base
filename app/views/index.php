@@ -10,6 +10,7 @@
 
     <!-- Bootstrap -->
     <link href="packages/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +39,7 @@
             <div>&nbsp;</div>
 
             <div class="row">
-                <div class="col-lg-6" ng-repeat="todo in todos | filter:search:strict | orderBy: 'body' ">
+                <div class="cell col-xs-12 repeat-animation" ng-repeat="todo in todos | filter:search:strict | orderBy: 'body' ">
                     <form class="form-inline" role="form">
                         <div class="ckeckbox">
                             <input autofocus type="checkbox" ng-model="todo.completed" ng-change="changeTodo(todo)">
@@ -65,6 +66,7 @@
     </div>
 
     <script src="/packages/angularjs/angular.min.js"></script>
+    <script src="/packages/angularjs/angular-animate.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/todosFactory.js"></script>
     <script src="/js/todosController.js"></script>

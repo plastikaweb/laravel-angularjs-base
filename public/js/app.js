@@ -5,5 +5,5 @@
 (function(){
     "use strict";
 
-    angular.module('mainApp', []);
+    angular.module('mainApp', ['ngAnimate']);
 })();
