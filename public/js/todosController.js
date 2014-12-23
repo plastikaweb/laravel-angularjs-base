@@ -9,8 +9,6 @@
 
         $scope.todos = {};
         $scope.newTodo = {};
-        $scope.newTodoBody;
-
 
         /**
          * get todos list on load
@@ -32,16 +30,10 @@
          */
         $scope.addTodo = function(){
 
-            $scope.newTodo = {
-                body: $scope.newTodoBody,
-                completed: false
-            };
-
             todosFactory.addTodo($scope.newTodo)
                 .success(function(data){
                     $scope.todos.push(data);
                     $scope.newTodo = {};
-                    $scope.newTodoBody = '';
                 })
                 .error(function(data, status, headers, config){
                     console.log(data.error + " " + status);

@@ -33,15 +33,15 @@
         </div>
         <div class="jumbotron">
             <div class="clearfix">
-                <input type="text" class="form-control" placeholder="Filter todos" ng-model="search">
+                <input type="text" class="form-control" placeholder="Filter todos" ng-model="search.body">
             </div>
             <div>&nbsp;</div>
 
             <div class="row">
-                <div class="col-lg-6" ng-repeat="todo in todos | filter:search">
+                <div class="col-lg-6" ng-repeat="todo in todos | filter:search:strict | orderBy: 'body' ">
                     <form class="form-inline" role="form">
                         <div class="ckeckbox">
-                            <input type="checkbox" ng-model="todo.completed" ng-change="changeTodo(todo)">
+                            <input autofocus type="checkbox" ng-model="todo.completed" ng-change="changeTodo(todo)">
                             <label>{{ todo.body }}</label>
                             <button type="button" class="btn btn-link btn-xs" ng-click="removeTodo(todo.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                         </div>
@@ -49,12 +49,14 @@
                 </div>
             </div>
 
-            <form class="form-inline" ng-submit="addTodo()" role="form">
+            <form name="todoForm" class="form-inline" ng-submit="addTodo()" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Add new todo task" ng-model="newTodoBody">
+                    <input required ng-minlength="3" name="body" type="text" class="form-control" placeholder="Add new todo task" ng-model="newTodo.body">
+
                 </div>
-                <button class="btn btn-default" type="submit">Add Task</button>
+                <input class="btn btn-default" type="submit" value="Add Task" ng-disabled="todoForm.$invalid">
             </form>
+            <small>Type a word of 3 or more characters</small>
         </div>
 
         <footer class="footer">
