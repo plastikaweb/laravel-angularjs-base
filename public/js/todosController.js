@@ -83,11 +83,10 @@
         $scope.changeTodo = function(todo){
                 todosFactory.editTodo(todo)
                     .success(function(data){
-                        console.log(data);
                         if(data){
-                            init();
+                            console.log('state changed to complete');
                         }else{
-                            console.log('unable to delete the task');
+                            console.log('unable to change state');
                         }
                     })
                     .error(function(data, status, headers, config){
