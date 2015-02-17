@@ -22,7 +22,8 @@
             return $http.put(baseUrl + "/" + todo.id, todo);
         };
 
-        factory.removeTodo = function(todoId){
+        factory.removeTodo = function(todo){
+            var todoId = todo.id;
             return $http.delete(baseUrl + "/" + todoId);
         }
 

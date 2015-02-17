@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
     <!--  Mobile Viewport Fix -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angularjs | Laravel</title>
@@ -20,48 +21,52 @@
     <![endif]-->
 </head>
 
-<body>
-
-    <div class="container" ng-controller="TodosController">
-        <div class="header">
-            <h3>Todos
-                <small ng-show="selected().length">
-                    ({{ selected().length }} selected)
-                </small>
-            </h3>
-
-
-        </div>
+<body class="container" ng-controller="TodosController">
+<div class="row-fluid">
+    <div class="col-md-8 col-md-offset-2">
         <div class="jumbotron">
-            <div class="clearfix">
-                <input type="text" class="form-control" placeholder="Filter todos" ng-model="search.body">
-            </div>
-            <div>&nbsp;</div>
+            <h1>My Todo List</h1>
 
-            <div class="row">
-                <div class="cell col-xs-12 repeat-animation" ng-repeat="todo in todos | filter:search:strict | orderBy: 'body' ">
-                    <form class="form-inline" role="form">
-                        <div class="ckeckbox">
-                            <input autofocus type="checkbox" ng-model="todo.completed" ng-change="changeTodo(todo)">
-                            <label>{{ todo.body }}</label>
-                            <button type="button" class="btn btn-link btn-xs" ng-click="removeTodo(todo.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        </div>
-                    </form>
+            <form name="todoForm" ng-submit="addTodo()">
+                <div class="input-group input-group-lg">
+                    <input required ng-minlength="3" name="body" type="text" class="form-control input-lg"
+                           placeholder="Add new todo task" ng-model="newTodo.body">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success" ng-disabled="todoForm.$invalid">Add task</button>
+                      </span>
                 </div>
-            </div>
-
-            <form name="todoForm" class="form-inline" ng-submit="addTodo()" role="form">
-                <div class="form-group">
-                    <input required ng-minlength="3" name="body" type="text" class="form-control" placeholder="Add new todo task" ng-model="newTodo.body">
-
-                </div>
-                <input class="btn btn-default" type="submit" value="Add Task" ng-disabled="todoForm.$invalid">
+                <small>Type a word of 3 or more characters</small>
             </form>
-            <small>Type a word of 3 or more characters</small>
         </div>
+
+        <div class="clearfix">
+            <input type="text" class="form-control input-lg" placeholder="Filter todos" ng-model="search.body">
+        </div>
+
+        <div id="taskList" class="list-group">
+            <div class="list-group-item task"
+                 ng-repeat="todo in todos | filter:search:strict | orderBy: 'body' ">
+                <label class="description" ng-class="{strike: todo.completed}">
+                    <input autofocus type="checkbox" ng-model="todo.completed"
+                           ng-change="changeTodo(todo)">
+                    {{ todo.body }}</label>
+                <button type="button" class="btn btn-primary btn-xs" ng-click="removeTodo(todo)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+
+            </div>
+        </div>
+
+        <span id="todo-count">
+      <h4>{{ pendingCount }}
+          <ng-pluralize count="pendingCount" when="{one: 'item left', other: 'items left'}">
+          </ng-pluralize>
+
+      </h4>
+    </span>
+
 
         <footer class="footer">
-            <p>© Plastikaweb 2014</p>
+            <p>© Plastikaweb 2014 - 2015</p>
         </footer>
     </div>
 

@@ -5,11 +5,11 @@
 (function(){
     "use strict";
 
-    var TodosController = function($scope, todosFactory) {
+    var TodosController = function($scope, $filter, todosFactory) {
 
         $scope.todos = {};
         $scope.newTodo = {};
-
+        $scope.pendingCount = 3;
         /**
          * get todos list on load
          */
@@ -44,8 +44,8 @@
          * delete a todo task from database
          * @param {Number} [todoId]
          */
-        $scope.removeTodo = function(todoId){
-            todosFactory.removeTodo(todoId)
+        $scope.removeTodo = function(todo){
+            todosFactory.removeTodo(todo)
                 .success(function(data){
                     console.log(data);
                     if(data){
@@ -61,20 +61,15 @@
 
         };
 
-        /**
-         * check the selected todo tasks
-         * @returns {Array}
-         */
-        $scope.selected = function(){
-            var count = [];
-            angular.forEach($scope.todos, function(todo){
-                if(todo.completed){
-                    count.push(todo);
-                }
-            });
 
-            return count;
-        };
+        /**
+         * listen to todos task pending
+         * @returns {Number}
+         */
+        $scope.$watch('todos', function(){
+            $scope.pendingCount = $filter('filter')($scope.todos, {completed: false}).length;
+        }, true);
+
 
         /**
          * change the completed field of a todo task
@@ -94,10 +89,9 @@
                     });
             };
 
-
     };
 
-    TodosController.$inject = ['$scope', 'todosFactory'];
+    TodosController.$inject = ['$scope', '$filter', 'todosFactory'];
 
     angular.module('mainApp')
         .controller('TodosController', TodosController);
